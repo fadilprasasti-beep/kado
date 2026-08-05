@@ -22,7 +22,6 @@
             font-weight: 400;
         }
         
-        /* UNSUR POHON DAN ALAM */
         .tree-bg {
             position: fixed;
             bottom: 0; 
@@ -90,7 +89,6 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TYPOGRAPHY */
         .subtitle {
             font-size: 0.65rem;
             letter-spacing: 5px;
@@ -113,7 +111,7 @@
         }
         
         button {
-            background: transparent;
+            background: rgba(17, 17, 17, 0.8);
             color: #d4af37;
             border: 1px solid rgba(212, 175, 55, 0.4);
             padding: 12px 35px;
@@ -124,16 +122,15 @@
             cursor: pointer;
             border-radius: 2px;
             transition: all 0.4s ease;
-            margin-top: 40px;
+            margin-top: 30px;
             position: relative;
             z-index: 999;
         }
         button:hover {
-            background: rgba(212, 175, 55, 0.1);
+            background: rgba(212, 175, 55, 0.2);
             border-color: #d4af37;
         }
 
-        /* FOTO PROFILE */
         .profile-pic {
             width: 150px;
             height: 150px;
@@ -152,20 +149,28 @@
             margin-top: 15px;
         }
 
-        /* GALLERY GRID */
+        /* GALLERY GRID YANG SUDAH DIBIKIN BISA SCROLL */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 10px;
-            max-width: 350px;
-            margin: 20px auto;
+            gap: 15px;
+            max-width: 380px;
+            margin: 15px auto;
+            max-height: 50vh; /* Membatasi tinggi agar bisa scroll */
+            overflow-y: auto; /* Memunculkan scroll otomatis */
+            padding: 10px;
+            border-radius: 5px;
         }
+        .gallery-grid::-webkit-scrollbar { width: 4px; }
+        .gallery-grid::-webkit-scrollbar-thumb { background: rgba(212, 175, 55, 0.3); border-radius: 5px; }
+        
         .gallery-grid img {
             width: 100%;
-            height: 160px;
+            height: 180px; /* Foto diperbesar */
             object-fit: cover;
-            filter: grayscale(50%);
+            filter: grayscale(30%);
             border-radius: 3px;
+            border: 1px solid rgba(212, 175, 55, 0.2);
         }
 
         .video-container {
@@ -182,7 +187,6 @@
             display: block;
         }
 
-        /* FIREWORKS / SPARKLES */
         .sparkle {
             position: absolute;
             background: #d4af37;
@@ -198,7 +202,6 @@
             50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 8px #d4af37; }
         }
 
-        /* ANIMASI AKAR JADI LOVE (TAMBAHAN BARU) */
         .love-tree-container {
             position: absolute;
             bottom: 0;
@@ -207,7 +210,7 @@
             width: 100%;
             height: 100%;
             pointer-events: none;
-            z-index: 5; /* Di atas pohon tapi di bawah teks */
+            z-index: 5; 
         }
         .stem {
             position: absolute;
@@ -216,7 +219,7 @@
             transform: translateX(-50%);
             width: 3px;
             background: linear-gradient(to top, transparent, #d4af37);
-            height: 0; /* Mulai dari 0 */
+            height: 0; 
             border-radius: 50px;
             transition: height 2.5s ease-in-out;
             box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
@@ -224,7 +227,7 @@
         .heart-particle {
             position: absolute;
             font-size: 1.5rem;
-            bottom: 150px; /* Sesuai tinggi maksimal tangkai */
+            bottom: 150px; 
             left: 50%;
             transform: translateX(-50%) scale(0);
             opacity: 0;
@@ -275,11 +278,18 @@
         <p class="subtitle fade-up delay-1">ALL ABOUT YOU</p>
         
         <div class="gallery-grid fade-up delay-2">
+            <img src="001.JPEG" alt="Memori">
             <img src="002.JPEG" alt="Memori">
             <img src="003.JPEG" alt="Memori">
             <img src="004.JPEG" alt="Memori">
-            <img src="005.JPEG" alt="Memori">
-        </div>
+            <img src="006.JPEG" alt="Memori">
+            <img src="007.JPEG" alt="Memori">
+            <img src="008.JPEG" alt="Memori">
+            <img src="009.JPEG" alt="Memori">
+            <img src="010.JPEG" alt="Memori">
+            <img src="011.JPEG" alt="Memori">
+            <img src="012.JPEG" alt="Memori">
+            <img src="013.JPG" alt="Memori"> </div>
 
         <button class="fade-up delay-3" onclick="nextScreen('screen4', 'screen5')">WATCH MEMORY</button>
     </div>
@@ -296,8 +306,8 @@
 
     <div id="screen6" class="screen">
         <div id="love-tree-container" class="love-tree-container"></div>
-
         <div id="sparkles-container"></div>
+        
         <p class="subtitle fade-up delay-1">THANK YOU FOR BEING HERE</p>
         <h1 class="title fade-up delay-2" style="font-size: 3rem; margin: 10px 0;">Happy Birthday</h1>
         <p class="desc fade-up delay-3" style="color: #d4af37; font-size: 0.9rem;">you deserve all the good things in life.</p>
@@ -306,7 +316,7 @@
     </div>
 
     <script>
-        let treeStarted = false; // Mencegah akar tumbuh 2 kali
+        let treeStarted = false; 
 
         function nextScreen(currentId, nextId) {
             const currentScreen = document.getElementById(currentId);
@@ -330,7 +340,6 @@
                     if(vid) vid.pause();
                 }
 
-                // JIKA MASUK KE LAYAR 6, MULAI ANIMASI AKAR LOVE
                 if(nextId === 'screen6' && !treeStarted) {
                     treeStarted = true;
                     startLoveTree();
@@ -342,54 +351,46 @@
             }, 800); 
         }
 
-        // MESIN ANIMASI AKAR TUMBUH JADI LOVE
         function startLoveTree() {
             const container = document.getElementById('love-tree-container');
             if(!container) return;
             
-            // 1. Buat Akar/Tangkai Emas
             const stem = document.createElement('div');
             stem.className = 'stem';
             container.appendChild(stem);
             
-            // 2. Animasi Tangkai Tumbuh Ke Atas (delay sedikit agar layar muncul dulu)
             setTimeout(() => {
-                stem.style.height = '150px'; // Tingginya tangkai
+                stem.style.height = '150px'; 
             }, 500);
 
-            // 3. Mulai sebarkan LOVE setelah tangkai selesai tumbuh (setelah 2.5 detik)
             setTimeout(() => {
                 setInterval(() => {
                     const heart = document.createElement('div');
                     heart.innerHTML = '❤';
                     heart.className = 'heart-particle';
                     
-                    // Arah terbang acak (melebar ke kiri/kanan dan ke atas)
                     const tx = (Math.random() - 0.5) * 300 + 'px'; 
                     const ty = -(Math.random() * 250 + 100) + 'px'; 
-                    const duration = Math.random() * 2.5 + 2.5 + 's'; // 2.5 - 5 detik melayang
+                    const duration = Math.random() * 2.5 + 2.5 + 's'; 
                     
                     heart.style.setProperty('--tx', tx);
                     heart.style.setProperty('--ty', ty);
                     heart.style.animation = `floatHeart ${duration} ease-in forwards`;
                     
-                    // Campuran warna elegan emas dan soft pink
                     const colors = ['#d4af37', '#f4d58d', '#ffb6c1', '#f9e5b5'];
                     heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                    heart.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem'; // Ukuran love acak
+                    heart.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem'; 
                     
                     container.appendChild(heart);
                     
-                    // Bersihkan memori agar web tidak lemot
                     setTimeout(() => {
                         heart.remove();
                     }, parseFloat(duration) * 1000);
 
-                }, 150); // Kecepatan munculnya love (makin kecil makin rimbun)
+                }, 150); 
             }, 2500);
         }
 
-        // Kembang api di layar terakhir
         function createSparkles() {
             const container = document.getElementById('screen6');
             if(!container) return;
@@ -405,7 +406,6 @@
         }
         createSparkles();
 
-        // Daun berguguran
         function createLeaves() {
             const container = document.getElementById('leaves-container');
             if(!container) return;
@@ -420,7 +420,6 @@
         }
         createLeaves();
 
-        // Animasi Loading angka 3,2,1
         let count = 3; 
         const loadNum = document.getElementById('loading-number');
         const loadText = document.getElementById('loading-text');
