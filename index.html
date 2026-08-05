@@ -21,6 +21,42 @@
             font-family: 'Playfair Display', serif;
             font-weight: 400;
         }
+        
+        /* UNSUR POHON DAN ALAM */
+        .tree-bg {
+            position: fixed;
+            bottom: 0; 
+            left: 0; 
+            width: 100%; 
+            height: 35vh;
+            /* Pastikan kamu mengupload file bernama pohon.png ke GitHub */
+            background: url('pohon.png') repeat-x bottom center;
+            background-size: contain;
+            opacity: 0.25; /* Dibuat sedikit transparan agar tidak menutupi teks */
+            z-index: 1;
+            pointer-events: none;
+        }
+        .leaves-container {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+        .leaf {
+            position: absolute;
+            width: 12px; height: 12px;
+            background: rgba(235, 213, 179, 0.3); 
+            border-radius: 0 12px 0 12px;
+            animation: fall linear infinite;
+        }
+        @keyframes fall {
+            0% { top: -10%; transform: translateX(0) rotate(0deg); opacity: 0; }
+            10% { opacity: 1; }
+            90% { opacity: 1; }
+            100% { top: 110%; transform: translateX(50px) rotate(360deg); opacity: 0; }
+        }
+
         .screen {
             display: none;
             opacity: 0;
@@ -35,11 +71,11 @@
             width: 100%;
             top: 0;
             left: 0;
+            z-index: 10;
         }
         .active {
             display: flex;
             opacity: 1;
-            z-index: 10;
         }
         
         .fade-up {
@@ -52,10 +88,7 @@
         .delay-3 { animation-delay: 1.3s; }
 
         @keyframes fadeUpAnim {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         .subtitle {
@@ -78,7 +111,7 @@
         }
         
         button {
-            background: transparent;
+            background: rgba(26, 21, 37, 0.8);
             color: #ebd5b3;
             border: 1px solid #ebd5b3;
             padding: 12px 30px;
@@ -105,7 +138,7 @@
             margin: 30px 0;
         }
         .time-box {
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             border: 1px solid rgba(235, 213, 179, 0.2);
             border-radius: 10px;
             padding: 15px 10px;
@@ -125,12 +158,13 @@
 
         .letter-box {
             max-width: 450px;
-            background: rgba(255, 255, 255, 0.03);
+            background: rgba(255, 255, 255, 0.05);
             padding: 35px;
             border-radius: 15px;
             border: 1px solid rgba(235, 213, 179, 0.15);
             margin-top: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
         }
         .letter-box p {
             font-size: 1rem;
@@ -197,6 +231,7 @@
             border-radius: 50%;
             opacity: 0;
             animation: twinkle 3s infinite;
+            z-index: 20;
         }
         @keyframes twinkle {
             0%, 100% { opacity: 0; transform: scale(0.5); }
@@ -206,7 +241,9 @@
 </head>
 <body>
 
-    <!-- SCREEN 1: Countdown -->
+    <div class="tree-bg"></div>
+    <div class="leaves-container" id="leaves-container"></div>
+
     <div id="screen1" class="screen active">
         <p class="subtitle fade-up delay-1">✨ MENGHITUNG WAKTU ✨</p>
         <h1 class="title fade-up delay-2">Her Special Day<br><span style="font-size: 1.5rem; font-style: italic; color: #a39581;">is finally here</span></h1>
@@ -221,7 +258,6 @@
         <button class="fade-up delay-3" onclick="nextScreen('screen1', 'screen2')">🎁 OPEN HER GIFT</button>
     </div>
 
-    <!-- SCREEN 2: Intro -->
     <div id="screen2" class="screen">
         <p class="subtitle fade-up delay-1">✨ A LETTER FOR YOU ✨</p>
         <h1 class="title fade-up delay-2">Your<br>Special Day</h1>
@@ -229,7 +265,6 @@
         <button class="fade-up delay-3" onclick="nextScreen('screen2', 'screen3')">💌 READ MY LETTER</button>
     </div>
 
-    <!-- SCREEN 3: Pesan Personal -->
     <div id="screen3" class="screen">
         <h1 class="title fade-up delay-1" style="font-size: 2rem;">Selamat Ulang Tahun<br>Elvita Agustina</h1>
         <div class="letter-box fade-up delay-2">
@@ -240,7 +275,6 @@
         <button class="fade-up delay-3" onclick="nextScreen('screen3', 'screen3_5')">LANJUTKAN ➔</button>
     </div>
 
-    <!-- SCREEN 3.5: Tambahan Romantis -->
     <div id="screen3_5" class="screen">
         <div class="letter-box fade-up delay-1" style="border: none; box-shadow: none; background: transparent;">
             <p style="font-size: 1.2rem;">"Meskipun semuanya terasa tidak mudah,</p>
@@ -250,13 +284,11 @@
         <button class="fade-up delay-3" onclick="nextScreen('screen3_5', 'screen4')">OUR MEMORIES ➔</button>
     </div>
 
-    <!-- SCREEN 4: Polaroid Gallery -->
     <div id="screen4" class="screen">
         <h1 class="title fade-up delay-1" style="font-size: 2rem; margin-bottom: 5px;">Our Memories</h1>
         <p class="subtitle fade-up delay-2" style="text-transform: none; letter-spacing: 1px;">Setiap detik yang terekam...</p>
         
         <div class="polaroid-gallery fade-up delay-3">
-            <!-- NAMA FILE DISESUAIKAN DENGAN GAMBAR GITHUB KAMU -->
             <div class="polaroid"><img src="001.JPEG" alt="Memori 1"></div>
             <div class="polaroid"><img src="002.JPEG" alt="Memori 2"></div>
             <div class="polaroid"><img src="003.JPEG" alt="Memori 3"></div>
@@ -271,19 +303,16 @@
         <button class="fade-up delay-3" onclick="nextScreen('screen4', 'screen5')">▶ WATCH VIDEO</button>
     </div>
 
-    <!-- SCREEN 5: Video -->
     <div id="screen5" class="screen">
         <h1 class="title fade-up delay-1" style="font-size: 1.8rem;">A Moment For You</h1>
         
         <div class="video-container fade-up delay-2">
-            <!-- NAMA FILE VIDEO JUGA SUDAH DISESUAIKAN -->
             <video src="012.MP4" controls preload="metadata"></video>
         </div>
 
         <button class="fade-up delay-3" onclick="nextScreen('screen5', 'screen6')">BIRTHDAY WISHES ➔</button>
     </div>
 
-    <!-- SCREEN 6: Penutup -->
     <div id="screen6" class="screen">
         <div id="sparkles-container"></div>
         <h1 class="title fade-up delay-1" style="font-size: 3.5rem; text-shadow: 0 0 20px rgba(235, 213, 179, 0.5);">Happy Birthday</h1>
@@ -336,6 +365,21 @@
             }
         }
         createSparkles();
+
+        // Membuat Daun Berguguran
+        function createLeaves() {
+            const container = document.getElementById('leaves-container');
+            if(!container) return;
+            for(let i = 0; i < 25; i++) {
+                let leaf = document.createElement('div');
+                leaf.className = 'leaf';
+                leaf.style.left = Math.random() * 100 + 'vw';
+                leaf.style.animationDelay = Math.random() * 5 + 's';
+                leaf.style.animationDuration = (Math.random() * 5 + 5) + 's';
+                container.appendChild(leaf);
+            }
+        }
+        createLeaves();
 
         let count = 5; 
         const secEl = document.getElementById('secs');
