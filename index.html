@@ -30,7 +30,7 @@
             min-height: 100vh;
             text-align: center;
             padding: 25px;
-            transition: opacity 1s ease-in-out;
+            transition: opacity 0.8s ease-in-out;
             position: absolute;
             width: 100%;
             top: 0;
@@ -43,13 +43,13 @@
         }
         
         .fade-up {
-            animation: fadeUpAnim 2s forwards;
+            animation: fadeUpAnim 1.5s forwards;
             opacity: 0;
             transform: translateY(20px);
         }
-        .delay-1 { animation-delay: 0.5s; }
-        .delay-2 { animation-delay: 1.5s; }
-        .delay-3 { animation-delay: 2.5s; }
+        .delay-1 { animation-delay: 0.3s; }
+        .delay-2 { animation-delay: 0.8s; }
+        .delay-3 { animation-delay: 1.3s; }
 
         @keyframes fadeUpAnim {
             to {
@@ -87,8 +87,10 @@
             letter-spacing: 2px;
             cursor: pointer;
             border-radius: 30px;
-            transition: all 0.5s ease;
+            transition: all 0.3s ease;
             margin-top: 40px;
+            position: relative;
+            z-index: 999; /* Memastikan tombol tidak terhalang apapun */
         }
         button:hover {
             background: #ebd5b3;
@@ -211,7 +213,7 @@
             <div class="time-box"><div class="time-val" id="secs">05</div><div class="time-label">DETIK</div></div>
         </div>
         
-        <button class="fade-up delay-3" onclick="nextScreen('screen1', 'screen2')" style="margin-top: 20px;">🎁 OPEN HER GIFT</button>
+        <button class="fade-up delay-3" onclick="nextScreen('screen1', 'screen2')">🎁 OPEN HER GIFT</button>
     </div>
 
     <!-- SCREEN 2: Intro -->
@@ -279,43 +281,40 @@
         <p class="subtitle fade-up delay-3" style="text-transform: none; font-style: italic; letter-spacing: 1px; margin-top: 10px;">Berbahagialah selalu. 🤍</p>
     </div>
 
-    <!-- MESIN JAVASCRIPT (PASTIKAN BAGIAN INI IKUT TERSALIN) -->
     <script>
+        // MESIN TRANSISI - Langsung respon saat tombol ditekan
         function nextScreen(currentId, nextId) {
             const currentScreen = document.getElementById(currentId);
             const nextScreen = document.getElementById(nextId);
             
-            // Fade out layar saat ini
             currentScreen.style.opacity = '0';
             
             setTimeout(() => {
                 currentScreen.classList.remove('active');
                 nextScreen.classList.add('active');
                 
-                // Restart animasi untuk elemen di layar berikutnya
                 const fadeElements = nextScreen.querySelectorAll('.fade-up');
                 fadeElements.forEach(el => {
                     el.style.animation = 'none';
-                    el.offsetHeight; 
+                    void el.offsetWidth; // Force reflow agar animasi jalan lagi
                     el.style.animation = null; 
                 });
 
-                // Pause video otomatis kalau pindah halaman
                 if(currentId === 'screen5') {
                     const vid = currentScreen.querySelector('video');
                     if(vid) vid.pause();
                 }
 
-                // Fade in layar berikutnya
                 setTimeout(() => {
                     nextScreen.style.opacity = '1';
-                }, 100);
-            }, 1000); 
+                }, 50);
+            }, 800); 
         }
 
-        // Kembang api romantis
+        // KEMBANG API
         function createSparkles() {
             const container = document.getElementById('screen6');
+            if(!container) return;
             for(let i = 0; i < 50; i++) {
                 let sparkle = document.createElement('div');
                 sparkle.className = 'sparkle';
@@ -328,22 +327,19 @@
         }
         createSparkles();
 
-        // Hitung mundur di layar utama
-        window.onload = () => {
-            let count = 5; 
-            const secEl = document.getElementById('secs');
-            
-            if (secEl) {
-                const timer = setInterval(() => {
-                    if (count > 0) {
-                        count--;
-                        secEl.innerText = count < 10 ? '0' + count : count;
-                    } else {
-                        clearInterval(timer);
-                    }
-                }, 1000);
-            }
-        };
+        // MESIN WAKTU - Langsung dieksekusi tanpa nunggu loading
+        let count = 5; 
+        const secEl = document.getElementById('secs');
+        if (secEl) {
+            const timer = setInterval(() => {
+                if (count > 0) {
+                    count--;
+                    secEl.innerText = count < 10 ? '0' + count : count;
+                } else {
+                    clearInterval(timer);
+                }
+            }, 1000);
+        }
     </script>
 </body>
 </html>
