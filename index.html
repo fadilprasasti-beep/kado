@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Happy Birthday Elvita Agustina</title>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;1,400&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400;1,600&family=Montserrat:wght@300;400&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -22,7 +22,6 @@
             font-weight: 400;
         }
         
-        /* UNSUR POHON DAN ALAM */
         .tree-bg {
             position: fixed;
             bottom: 0; 
@@ -85,12 +84,12 @@
         .delay-1 { animation-delay: 0.3s; }
         .delay-2 { animation-delay: 0.8s; }
         .delay-3 { animation-delay: 1.3s; }
+        .delay-4 { animation-delay: 1.8s; }
 
         @keyframes fadeUpAnim {
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* TYPOGRAPHY */
         .subtitle {
             font-size: 0.65rem;
             letter-spacing: 5px;
@@ -133,7 +132,7 @@
             border-color: #d4af37;
         }
 
-        /* ANIMASI PANAH CINTA (CUPID) */
+        /* 1. ANIMASI PANAH CINTA (CUPID) */
         .cupid-container {
             position: relative;
             width: 150px;
@@ -178,6 +177,66 @@
             animation: none;
         }
 
+        /* 2. ANIMASI POHON MEKAR (BLOOMING WISHES) */
+        .blooming-tree {
+            position: relative;
+            width: 100%;
+            max-width: 350px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        .tree-svg {
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 250px;
+            height: 350px;
+            z-index: 1;
+        }
+        .branch-path {
+            fill: none;
+            stroke: #a08c5b; /* Warna emas kecoklatan */
+            stroke-width: 4;
+            stroke-linecap: round;
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+        }
+        .screen.active .branch-path {
+            animation: drawTree 2s ease-out forwards;
+        }
+        @keyframes drawTree {
+            to { stroke-dashoffset: 0; }
+        }
+        
+        .canopy {
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            width: 280px;
+            height: 280px;
+            transform: translateX(-50%) scale(0);
+            transform-origin: bottom center;
+            z-index: 2;
+            opacity: 0;
+        }
+        .screen.active .canopy {
+            animation: bloomCanopy 1.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            animation-delay: 1.8s; /* Mekar setelah batang pohon selesai digambar */
+        }
+        @keyframes bloomCanopy {
+            to { transform: translateX(-50%) scale(1); opacity: 1; }
+        }
+        .canopy-heart {
+            position: absolute;
+            animation: gentleSway 3s infinite ease-in-out alternate;
+            text-shadow: 0 0 5px rgba(255,255,255,0.3);
+        }
+        @keyframes gentleSway {
+            from { transform: rotate(-5deg); }
+            to { transform: rotate(5deg); }
+        }
+
         .profile-pic {
             width: 150px;
             height: 150px;
@@ -196,7 +255,7 @@
             margin-top: 15px;
         }
 
-        /* GALLERY GRID */
+        /* GALLERY GRID (2 SLAID) */
         .gallery-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -205,7 +264,6 @@
             margin: 15px auto;
             padding: 10px;
         }
-        
         .gallery-grid img {
             width: 100%;
             height: 180px;
@@ -235,7 +293,6 @@
             display: block;
         }
 
-        /* FIREWORKS / SPARKLES */
         .sparkle {
             position: absolute;
             background: #d4af37;
@@ -250,44 +307,6 @@
             0%, 100% { opacity: 0; transform: scale(0.5); }
             50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 8px #d4af37; }
         }
-
-        /* ANIMASI AKAR JADI LOVE */
-        .love-tree-container {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 5; 
-        }
-        .stem {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 3px;
-            background: linear-gradient(to top, transparent, #d4af37);
-            height: 0; 
-            border-radius: 50px;
-            transition: height 2.5s ease-in-out;
-            box-shadow: 0 0 10px rgba(212, 175, 55, 0.5);
-        }
-        .heart-particle {
-            position: absolute;
-            font-size: 1.5rem;
-            bottom: 150px; 
-            left: 50%;
-            transform: translateX(-50%) scale(0);
-            opacity: 0;
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.3);
-        }
-        @keyframes floatHeart {
-            0% { transform: translate(-50%, 0) scale(0); opacity: 0; }
-            20% { opacity: 1; transform: translate(calc(-50% + var(--tx)), -30px) scale(1.2); }
-            100% { transform: translate(calc(-50% + var(--tx)), var(--ty)) scale(0.6); opacity: 0; }
-        }
     </style>
 </head>
 <body>
@@ -295,6 +314,7 @@
     <div class="tree-bg"></div>
     <div class="leaves-container" id="leaves-container"></div>
 
+    <!-- SCREEN 1: ANIMASI PANAH CINTA -->
     <div id="screen1" class="screen active">
         <p class="subtitle fade-up delay-1">A LITTLE SOMETHING FOR YOU</p>
         
@@ -309,17 +329,39 @@
         <p class="desc fade-up delay-3" style="margin-top: 30px; letter-spacing: 2px;">SENTUH HATI INI</p>
     </div>
 
-    <div id="screen2" class="screen">
-        <p class="subtitle fade-up delay-1">YOU ARE CORDIALLY INVITED</p>
-        <h1 class="title fade-up delay-2">A Little Surprise<br><span style="font-style: italic; font-size: 2rem;">Made With Love</span></h1>
-        
-        <p class="subtitle fade-up delay-3" style="margin-top: 40px; letter-spacing: 2px; color: #666;" id="loading-text">PREPARING SOMETHING FOR YOU...</p>
-        <div class="fade-up delay-3" id="loading-number" style="font-family: 'Playfair Display', serif; font-size: 2rem; margin-top: 10px;">3</div>
-        
-        <button id="btn-open" class="fade-up delay-3" style="display: none;" onclick="nextScreen('screen2', 'screen3')">LET IT BEGIN</button>
+    <!-- SCREEN 2: LAYAR PINK "MAKE A WISH" (Sama persis dengan video 0:11) -->
+    <div id="screen2" class="screen" style="background: linear-gradient(135deg, #e93b61, #bf1a3d); z-index: 20;">
+        <p class="fade-up delay-1" style="font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.5rem; color: #fff; margin-bottom: 10px;">make a wish...</p>
+        <h1 class="fade-up delay-2" style="font-family: 'Playfair Display', serif; font-size: 4.5rem; font-weight: 600; color: #fff; line-height: 1.1;">Happy<br>Birthday</h1>
     </div>
 
+    <!-- SCREEN 3: BLOOMING WISHES (Pohon Mekar seperti video 0:14) -->
     <div id="screen3" class="screen">
+        <h2 class="fade-up delay-1" style="font-family: 'Playfair Display', serif; font-size: 2rem; color: #d4af37; margin-bottom: 20px;">Blooming Wishes</h2>
+        
+        <div class="blooming-tree fade-up delay-1">
+            <!-- Batang Pohon SVG -->
+            <svg viewBox="0 0 200 300" class="tree-svg">
+                <!-- Akar utama -->
+                <path class="branch-path" d="M100,300 Q100,200 100,150" />
+                <!-- Cabang Kiri -->
+                <path class="branch-path" d="M100,220 Q70,160 30,100" />
+                <path class="branch-path" d="M70,170 Q40,120 60,60" />
+                <!-- Cabang Kanan -->
+                <path class="branch-path" d="M100,200 Q140,140 170,80" />
+                <path class="branch-path" d="M140,140 Q170,100 140,50" />
+                <!-- Cabang Tengah -->
+                <path class="branch-path" d="M100,150 Q120,90 100,40" />
+            </svg>
+            <!-- Wadah Daun Cinta (Akan diisi oleh Javascript) -->
+            <div class="canopy" id="tree-canopy"></div>
+        </div>
+        
+        <button class="fade-up delay-4" onclick="nextScreen('screen3', 'screen4')" style="margin-top: 10px;">READ MY LETTER</button>
+    </div>
+
+    <!-- SCREEN 4: MESSAGE -->
+    <div id="screen4" class="screen">
         <p class="subtitle fade-up delay-1">A MESSAGE JUST FOR YOU</p>
         <h1 class="title fade-up delay-2" style="font-size: 3rem;">Elvita</h1>
         
@@ -328,10 +370,11 @@
             <br>
             <p>"Kamu mungkin tidak selalu sadar, tapi kamu tetaplah salah satu hal terbaik yang pernah terjadi di dalam ceritaku."</p>
         </div>
-        <button class="fade-up delay-3" onclick="nextScreen('screen3', 'screen4')">OUR MEMORIES</button>
+        <button class="fade-up delay-3" onclick="nextScreen('screen4', 'screen5')">OUR MEMORIES</button>
     </div>
 
-    <div id="screen4" class="screen">
+    <!-- SCREEN 5: FOTO SLAID 1 (6 GAMBAR PERTAMA) -->
+    <div id="screen5" class="screen">
         <p class="subtitle fade-up delay-1">PART 1 : BEAUTIFUL MOMENTS</p>
         
         <div class="gallery-grid fade-up delay-2">
@@ -343,10 +386,11 @@
             <img src="007.JPEG" alt="Memori 6">
         </div>
 
-        <button class="fade-up delay-3" onclick="nextScreen('screen4', 'screen5')">SLAID SETERUSNYA ➔</button>
+        <button class="fade-up delay-3" onclick="nextScreen('screen5', 'screen6')">SLAID SETERUSNYA ➔</button>
     </div>
 
-    <div id="screen5" class="screen">
+    <!-- SCREEN 6: FOTO SLAID 2 (6 GAMBAR SETERUSNYA) -->
+    <div id="screen6" class="screen">
         <p class="subtitle fade-up delay-1">PART 2 : UNFORGETTABLE</p>
         
         <div class="gallery-grid fade-up delay-2">
@@ -358,21 +402,22 @@
             <img src="013.JPG" alt="Memori 12">
         </div>
 
-        <button class="fade-up delay-3" onclick="nextScreen('screen5', 'screen6')">WATCH VIDEO ➔</button>
+        <button class="fade-up delay-3" onclick="nextScreen('screen6', 'screen7')">WATCH VIDEO ➔</button>
     </div>
 
-    <div id="screen6" class="screen">
+    <!-- SCREEN 7: VIDEO -->
+    <div id="screen7" class="screen">
         <p class="subtitle fade-up delay-1">A MOMENT CAPTURED</p>
         
         <div class="video-container fade-up delay-2">
             <video src="012.MP4" controls preload="metadata"></video>
         </div>
 
-        <button class="fade-up delay-3" onclick="nextScreen('screen6', 'screen7')">FINISH</button>
+        <button class="fade-up delay-3" onclick="nextScreen('screen7', 'screen8')">FINISH</button>
     </div>
 
-    <div id="screen7" class="screen">
-        <div id="love-tree-container" class="love-tree-container"></div>
+    <!-- SCREEN 8: FINAL WISHES -->
+    <div id="screen8" class="screen">
         <div id="sparkles-container"></div>
         
         <p class="subtitle fade-up delay-1">THANK YOU FOR BEING HERE</p>
@@ -383,7 +428,34 @@
     </div>
 
     <script>
-        let treeStarted = false; 
+        // Membangun dedaunan (canopy) bentuk love secara otomatis
+        function generateCanopy() {
+            const canopy = document.getElementById('tree-canopy');
+            if(!canopy) return;
+            const colors = ['#e93b61', '#ff9999', '#f4d58d', '#ffb6c1', '#ffffff'];
+            
+            for(let i=0; i<80; i++) {
+                let h = document.createElement('div');
+                h.innerHTML = '❤';
+                h.className = 'canopy-heart';
+                
+                // Menyebarkan love membentuk kumpulan daun bundar
+                let angle = Math.random() * Math.PI * 2;
+                let radius = Math.random() * 120; 
+                
+                let x = Math.cos(angle) * radius + 130; 
+                let y = Math.sin(angle) * radius + 130;
+                
+                h.style.left = x + 'px';
+                h.style.top = y + 'px';
+                h.style.color = colors[Math.floor(Math.random() * colors.length)];
+                h.style.fontSize = (Math.random() * 1.2 + 0.6) + 'rem';
+                h.style.animationDelay = (Math.random() * 2) + 's';
+                
+                canopy.appendChild(h);
+            }
+        }
+        generateCanopy();
 
         // Fungsi Panah Cinta
         function shootArrow() {
@@ -392,7 +464,7 @@
             
             container.classList.add('shot');
             
-            // Tunggu animasi panah siap, kemudian tukar skrin
+            // Tunggu panah menembus (1.2 detik), lalu pindah ke layar Pink
             setTimeout(() => {
                 nextScreen('screen1', 'screen2');
             }, 1200);
@@ -415,20 +487,16 @@
                     el.style.animation = null; 
                 });
 
-                if(currentId === 'screen6') {
+                if(currentId === 'screen7') {
                     const vid = currentScreen.querySelector('video');
                     if(vid) vid.pause();
                 }
 
-                // Mulakan Loading 3,2,1 jika masuk skrin 2
+                // Jika masuk layar Pink (Make a wish), otomatis pindah ke Pohon setelah 3.5 detik
                 if(nextId === 'screen2') {
-                    startCountdown();
-                }
-
-                // Mulakan Pokok Cinta jika masuk skrin 7
-                if(nextId === 'screen7' && !treeStarted) {
-                    treeStarted = true;
-                    startLoveTree();
+                    setTimeout(() => {
+                        nextScreen('screen2', 'screen3');
+                    }, 3500);
                 }
 
                 setTimeout(() => {
@@ -437,69 +505,8 @@
             }, 800); 
         }
 
-        function startCountdown() {
-            let count = 3; 
-            const loadNum = document.getElementById('loading-number');
-            const loadText = document.getElementById('loading-text');
-            const btnOpen = document.getElementById('btn-open');
-            
-            if (loadNum) {
-                const timer = setInterval(() => {
-                    count--;
-                    if (count > 0) {
-                        loadNum.innerText = count;
-                    } else if (count === 0) {
-                        loadNum.style.display = 'none';
-                        loadText.style.display = 'none';
-                        btnOpen.style.display = 'inline-block';
-                        clearInterval(timer);
-                    }
-                }, 1200);
-            }
-        }
-
-        function startLoveTree() {
-            const container = document.getElementById('love-tree-container');
-            if(!container) return;
-            
-            const stem = document.createElement('div');
-            stem.className = 'stem';
-            container.appendChild(stem);
-            
-            setTimeout(() => {
-                stem.style.height = '150px'; 
-            }, 500);
-
-            setTimeout(() => {
-                setInterval(() => {
-                    const heart = document.createElement('div');
-                    heart.innerHTML = '❤';
-                    heart.className = 'heart-particle';
-                    
-                    const tx = (Math.random() - 0.5) * 300 + 'px'; 
-                    const ty = -(Math.random() * 250 + 100) + 'px'; 
-                    const duration = Math.random() * 2.5 + 2.5 + 's'; 
-                    
-                    heart.style.setProperty('--tx', tx);
-                    heart.style.setProperty('--ty', ty);
-                    heart.style.animation = `floatHeart ${duration} ease-in forwards`;
-                    
-                    const colors = ['#d4af37', '#f4d58d', '#ffb6c1', '#f9e5b5'];
-                    heart.style.color = colors[Math.floor(Math.random() * colors.length)];
-                    heart.style.fontSize = (Math.random() * 1.2 + 0.8) + 'rem'; 
-                    
-                    container.appendChild(heart);
-                    
-                    setTimeout(() => {
-                        heart.remove();
-                    }, parseFloat(duration) * 1000);
-
-                }, 150); 
-            }, 2500);
-        }
-
         function createSparkles() {
-            const container = document.getElementById('screen7');
+            const container = document.getElementById('screen8');
             if(!container) return;
             for(let i = 0; i < 60; i++) {
                 let sparkle = document.createElement('div');
