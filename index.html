@@ -88,9 +88,9 @@
             cursor: pointer;
             border-radius: 30px;
             transition: all 0.3s ease;
-            margin-top: 40px;
+            margin-top: 30px;
             position: relative;
-            z-index: 999; /* Memastikan tombol tidak terhalang apapun */
+            z-index: 999;
         }
         button:hover {
             background: #ebd5b3;
@@ -139,34 +139,41 @@
             color: #f2e3c6;
         }
 
+        /* PERUBAHAN GALERI & UKURAN FOTO ADA DI SINI */
         .polaroid-gallery {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
-            gap: 15px;
-            max-width: 400px;
-            margin-top: 20px;
+            gap: 20px; /* Jarak antar foto diperlebar */
+            max-width: 650px; /* Area galeri diperbesar */
+            max-height: 55vh; /* Batas tinggi galeri agar tombol bawah tidak tertutup */
+            overflow-y: auto; /* Memunculkan efek scroll jika foto banyak */
+            padding: 15px 10px;
+            margin-top: 15px;
         }
+        /* Menyembunyikan bar scroll agar tetap estetik */
+        .polaroid-gallery::-webkit-scrollbar { width: 0px; }
+
         .polaroid {
             background: #fff;
-            padding: 10px 10px 30px 10px;
+            padding: 12px 12px 35px 12px; /* Bingkai lebih tebal */
             box-shadow: 0 4px 15px rgba(0,0,0,0.4);
-            border-radius: 2px;
-            width: 140px;
+            border-radius: 3px;
+            width: 170px; /* UKURAN DIPERBESAR (sebelumnya 140px) */
             transition: transform 0.4s ease;
         }
         .polaroid img {
             width: 100%;
-            height: 130px;
+            height: 160px; /* TINGGI FOTO DIPERBESAR */
             object-fit: cover;
             filter: grayscale(15%) sepia(20%);
         }
-        .polaroid:nth-child(odd) { transform: rotate(-5deg); }
-        .polaroid:nth-child(even) { transform: rotate(6deg); }
+        .polaroid:nth-child(odd) { transform: rotate(-4deg); }
+        .polaroid:nth-child(even) { transform: rotate(5deg); }
         .polaroid:hover {
-            transform: scale(1.1) rotate(0deg);
+            transform: scale(1.15) rotate(0deg);
             z-index: 2;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.6);
+            box-shadow: 0 12px 25px rgba(0,0,0,0.7);
         }
 
         .video-container {
@@ -195,151 +202,4 @@
         }
         @keyframes twinkle {
             0%, 100% { opacity: 0; transform: scale(0.5); }
-            50% { opacity: 1; transform: scale(1.5); box-shadow: 0 0 5px #ebd5b3; }
-        }
-    </style>
-</head>
-<body>
-
-    <!-- SCREEN 1: Countdown -->
-    <div id="screen1" class="screen active">
-        <p class="subtitle fade-up delay-1">✨ MENGHITUNG WAKTU ✨</p>
-        <h1 class="title fade-up delay-2">Her Special Day<br><span style="font-size: 1.5rem; font-style: italic; color: #a39581;">is finally here</span></h1>
-        
-        <div class="countdown-container fade-up delay-3">
-            <div class="time-box"><div class="time-val">00</div><div class="time-label">HARI</div></div>
-            <div class="time-box"><div class="time-val">00</div><div class="time-label">JAM</div></div>
-            <div class="time-box"><div class="time-val">00</div><div class="time-label">MENIT</div></div>
-            <div class="time-box"><div class="time-val" id="secs">05</div><div class="time-label">DETIK</div></div>
-        </div>
-        
-        <button class="fade-up delay-3" onclick="nextScreen('screen1', 'screen2')">🎁 OPEN HER GIFT</button>
-    </div>
-
-    <!-- SCREEN 2: Intro -->
-    <div id="screen2" class="screen">
-        <p class="subtitle fade-up delay-1">✨ A LETTER FOR YOU ✨</p>
-        <h1 class="title fade-up delay-2">Your<br>Special Day</h1>
-        <p class="subtitle fade-up delay-3" style="text-transform: none; letter-spacing: 1px;">Created with deepest feelings, just for you...</p>
-        <button class="fade-up delay-3" onclick="nextScreen('screen2', 'screen3')">💌 READ MY LETTER</button>
-    </div>
-
-    <!-- SCREEN 3: Pesan Personal -->
-    <div id="screen3" class="screen">
-        <h1 class="title fade-up delay-1" style="font-size: 2rem;">Selamat Ulang Tahun<br>Elvita Agustina</h1>
-        <div class="letter-box fade-up delay-2">
-            <p>"Sebenarnya hari ini adalah hari yang aku benci termasuk bulan yang aku hindari...</p>
-            <p style="margin-top: 15px;">tapi apapun itu, selamat ulang tahun buat kamu ya.</p>
-            <p style="margin-top: 15px; font-weight: bold;">Semoga kita sama-sama sembuh."</p>
-        </div>
-        <button class="fade-up delay-3" onclick="nextScreen('screen3', 'screen3_5')">LANJUTKAN ➔</button>
-    </div>
-
-    <!-- SCREEN 3.5: Tambahan Romantis -->
-    <div id="screen3_5" class="screen">
-        <div class="letter-box fade-up delay-1" style="border: none; box-shadow: none; background: transparent;">
-            <p style="font-size: 1.2rem;">"Meskipun semuanya terasa tidak mudah,</p>
-            <p style="margin-top: 15px; font-size: 1.2rem;" class="fade-up delay-2">kamu harus tahu satu hal...</p>
-            <p style="margin-top: 15px; font-size: 1.2rem; color: #fff;" class="fade-up delay-3">Kamu tetaplah salah satu hal terbaik yang pernah terjadi di dalam ceritaku."</p>
-        </div>
-        <button class="fade-up delay-3" onclick="nextScreen('screen3_5', 'screen4')">OUR MEMORIES ➔</button>
-    </div>
-
-    <!-- SCREEN 4: Polaroid Gallery -->
-    <div id="screen4" class="screen">
-        <h1 class="title fade-up delay-1" style="font-size: 2rem;">Our Memories</h1>
-        <p class="subtitle fade-up delay-2" style="text-transform: none; letter-spacing: 1px;">Setiap detik yang terekam...</p>
-        
-        <div class="polaroid-gallery fade-up delay-3">
-            <div class="polaroid"><img src="a4d6733c-c352-4c7a-ba3c-0c05204c1c5c.JPEG" alt="Memori 1"></div>
-            <div class="polaroid"><img src="01edbe6e-3d5b-48e1-a30e-8203ceb1bf3f.JPEG" alt="Memori 2"></div>
-            <div class="polaroid"><img src="d3b1bac0-bba4-4291-8318-7c5b01a04550.JPEG" alt="Memori 3"></div>
-            <div class="polaroid"><img src="85d7c060-ffa1-4fde-9afb-15a2ca2e2155.JPEG" alt="Memori 4"></div>
-        </div>
-
-        <button class="fade-up delay-3" onclick="nextScreen('screen4', 'screen5')">▶ WATCH VIDEO</button>
-    </div>
-
-    <!-- SCREEN 5: Video -->
-    <div id="screen5" class="screen">
-        <h1 class="title fade-up delay-1" style="font-size: 1.8rem;">A Moment For You</h1>
-        
-        <div class="video-container fade-up delay-2">
-            <video src="48d9aa16-182c-4167-88a2-c5698884b27d.MP4" controls preload="metadata"></video>
-        </div>
-
-        <button class="fade-up delay-3" onclick="nextScreen('screen5', 'screen6')">BIRTHDAY WISHES ➔</button>
-    </div>
-
-    <!-- SCREEN 6: Penutup -->
-    <div id="screen6" class="screen">
-        <div id="sparkles-container"></div>
-        <h1 class="title fade-up delay-1" style="font-size: 3.5rem; text-shadow: 0 0 20px rgba(235, 213, 179, 0.5);">Happy Birthday</h1>
-        <h2 class="name fade-up delay-2" style="font-size: 2.5rem;">Elvita Agustina</h2>
-        <br>
-        <p class="subtitle fade-up delay-3" style="text-transform: none; font-style: italic; letter-spacing: 1px; font-size: 0.9rem;">Terima kasih sudah bertahan sejauh ini.</p>
-        <p class="subtitle fade-up delay-3" style="text-transform: none; font-style: italic; letter-spacing: 1px; margin-top: 10px;">Berbahagialah selalu. 🤍</p>
-    </div>
-
-    <script>
-        // MESIN TRANSISI - Langsung respon saat tombol ditekan
-        function nextScreen(currentId, nextId) {
-            const currentScreen = document.getElementById(currentId);
-            const nextScreen = document.getElementById(nextId);
-            
-            currentScreen.style.opacity = '0';
-            
-            setTimeout(() => {
-                currentScreen.classList.remove('active');
-                nextScreen.classList.add('active');
-                
-                const fadeElements = nextScreen.querySelectorAll('.fade-up');
-                fadeElements.forEach(el => {
-                    el.style.animation = 'none';
-                    void el.offsetWidth; // Force reflow agar animasi jalan lagi
-                    el.style.animation = null; 
-                });
-
-                if(currentId === 'screen5') {
-                    const vid = currentScreen.querySelector('video');
-                    if(vid) vid.pause();
-                }
-
-                setTimeout(() => {
-                    nextScreen.style.opacity = '1';
-                }, 50);
-            }, 800); 
-        }
-
-        // KEMBANG API
-        function createSparkles() {
-            const container = document.getElementById('screen6');
-            if(!container) return;
-            for(let i = 0; i < 50; i++) {
-                let sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.top = Math.random() * 100 + 'vh';
-                sparkle.style.left = Math.random() * 100 + 'vw';
-                sparkle.style.animationDelay = Math.random() * 4 + 's';
-                sparkle.style.animationDuration = (Math.random() * 2 + 2) + 's';
-                container.appendChild(sparkle);
-            }
-        }
-        createSparkles();
-
-        // MESIN WAKTU - Langsung dieksekusi tanpa nunggu loading
-        let count = 5; 
-        const secEl = document.getElementById('secs');
-        if (secEl) {
-            const timer = setInterval(() => {
-                if (count > 0) {
-                    count--;
-                    secEl.innerText = count < 10 ? '0' + count : count;
-                } else {
-                    clearInterval(timer);
-                }
-            }, 1000);
-        }
-    </script>
-</body>
-</html>
+            50% { opacity: 1; transform: scale(
